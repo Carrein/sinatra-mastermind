@@ -4,18 +4,25 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/style.css">
     <link rel="icon" href="/assets/favicon.ico" type="image/ico" />
-    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
-    <title>caesar's cipher.</title>
+    <link href="https://fonts.googleapis.com/css?family=Reenie+Beanie" rel="stylesheet">
+    <title>mastermind.</title>
   </head>
   <body>
-    <div class="content">
-        <img class="icon" src="/assets/caesar.png"></img>
-        <a class="title">caesar's cipher.</a>
-        <form>
-            <input class="text-box" type="text" name="word" placeholder="Insert key here." value="<%= encode%>"></br>
-            <input class="text-box" type="number" name="shift" placeholder="Shift by?"></br>
-            <input class="text-button" type="submit" value="Encode that text!">
-        </form>
+    <div class="content-left">
+      <a class="hint"> Hints: </a>
     </div>
+    <div class="content-right">
+        <a class="title">mastermind.</a>
+        <div class="circle-group">
+          <div id="c1" class="circle"></div>
+          <div id="c2" class="circle"></div>
+          <div id="c3" class="circle"></div>
+          <div id="c4" class="circle"></div>
+        </div>
+        <a class="tries">Tries left: 12</a>
+        <input class="text-button" type="button" value="I hope this is right!">
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/script.js"></script>
   </body>
 </html>
