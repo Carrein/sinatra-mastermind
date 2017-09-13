@@ -29,12 +29,14 @@ $(document).ready(function(){
 
     $(".text-button").click(function(){
         
-        wincon();            
         
         $(".circle").each(function(){
             code.push(getKeyByValue(colors,$(this).css("background-color")))
             $(this).css("background-color", "white")
         });
+
+        //Check if user has won.
+        wincon();
 
         if(!winner){
             $("<div>", {
@@ -90,7 +92,6 @@ $(document).ready(function(){
             //reset hints and codes
             hint=[]
             code=[]
-            cache=[]
     });
 });
 
@@ -99,46 +100,31 @@ function logic(){
     //black => wrong guess, wrong slot
     //red => correct guess, correct slot
     for(var i=0; i !=4; i++){
-        if(code[i]==secret[i]){
-            hint.push("#D64541");
-            code.splice(i,1);
-            code.splice(i,0,7);
+        if(code[i]==secret[i]){ //if code and secret is exact matches.
+            hint.push("#D64541"); //add a red hint.
+            code.splice(i,1); //remove that element from code.
+            code.splice(i,0,7); //supplement with a placeholder.
         }else{
-            hint.push("#22313F");
+            hint.push("#22313F"); //else fill with black hint.
         }
     }
 
     for(var i=0; i !=4; i++){
         for(var j=0; j !=4; j++){
-            if(code[i]==secret[j]){
-                if(hint[i]!="#D64541"){
-                    hint[i] = "#ECECEC"
-                    code.splice(i,1);
-                    code.splice(i,0,6);                    
+            if(code[i]==secret[j]){ //if any of the code matches a secret.
+                if(hint[i]!="#D64541"){ //and its not already a red hint.
+                    hint[i] = "#ECECEC" //fill it with a white hint.              
                 }
             }
         }
     }
-    console.log(code.toString());
-    console.log(secret.toString());
-    holder = code;
-    console.log(holder.toString());
 }
 
 
 function wincon(){
-
-    var count = 0;
-    for(var i=0; i !=4; i++){
-        if(holder[i] == 7){
-            count ++;
-        }
-    }
-
-    console.log(count);
-
-    if(count == 4){
+    if(code.toString() === secret.toString()){
         winner = true
+        $(".title").text("Oh snap! You won!");        
         if(confirm("You broke the code! Click confirm to restart the game.")){
             location.reload(true)
         }    
@@ -150,7 +136,7 @@ function wincon(){
             $(".tries").text("Tries left: " + tries)
         }else{
             winner = true
-
+            $(".title").text("No more tries!");                    
             if(confirm("Oh no, you ran out of tries! Click confirm to restart the game.")){
                 location.reload(true)
             }        
